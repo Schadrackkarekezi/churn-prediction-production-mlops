@@ -1,18 +1,14 @@
-FROM python:3.12-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source code
 COPY src/ ./src/
-COPY api/ ./api/
-COPY models/ ./models/
+COPY artifacts/ ./artifacts/
+COPY application.py .
 
-# Expose port
 EXPOSE 8000
 
-# Run the API
-CMD ["uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "application:app", "--host", "0.0.0.0", "--port", "8000"]

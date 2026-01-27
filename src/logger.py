@@ -1,38 +1,17 @@
 import logging
-import sys
-from pathlib import Path
+import os
 from datetime import datetime
 
+LOG_FILE = f"{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}.log"
+logs_path = os.path.join(os.getcwd(), "logs")
+os.makedirs(logs_path, exist_ok=True)
 
-def setup_logger(name="churn_prediction", level=logging.INFO, log_to_file=True, log_dir="logs"):
-    logger = logging.getLogger(name)
+LOG_FILE_PATH = os.path.join(logs_path, LOG_FILE)
 
-    if logger.handlers:
-        return logger
+logging.basicConfig(
+    filename=LOG_FILE_PATH,
+    format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO
+)
 
-    logger.setLevel(level)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-
-    console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setLevel(level)
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
-
-    if log_to_file:
-        log_path = Path(log_dir)
-        log_path.mkdir(parents=True, exist_ok=True)
-
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        file_handler = logging.FileHandler(log_path / f"{name}_{timestamp}.log")
-        file_handler.setLevel(level)
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
-
-    return logger
-
-
-def get_logger(name="churn_prediction"):
-    logger = logging.getLogger(name)
-    if not logger.handlers:
-        return setup_logger(name)
-    return logger
+logger = logging.getLogger("churn_prediction")

@@ -1,0 +1,33 @@
+# Data processing
+pandas
+numpy
+
+# Visualization
+matplotlib
+seaborn
+
+# Machine Learning
+scikit-learn
+xgboost
+lightgbm
+imbalanced-learn
+joblib
+
+# API
+fastapi
+uvicorn[standard]
+pydantic
+
+# Development
+jupyter
+ipykernel
+
+# Testing
+pytest
+pytest-cov
+httpx
+
+# Code quality
+black
+flake8
+isort

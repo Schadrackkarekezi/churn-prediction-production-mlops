@@ -12,8 +12,10 @@ env/
 # IDE
 .vscode/
 .idea/
+.claude/
 *.swp
 *.swo
+nul
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
@@ -23,9 +25,9 @@ env/
 # *.parquet
 # data/
 
-# Model artifacts
-*.pkl
-*.joblib
+# Model artifacts (keep artifacts/ folder)
+# *.pkl
+# *.joblib
 *.h5
 *.pt
 *.pth

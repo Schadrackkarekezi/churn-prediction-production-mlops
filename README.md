@@ -4,6 +4,11 @@ End-to-end machine learning pipeline for predicting customer churn.
 
 ## Project Structure
 
+
+
+
+
+
 ```
 churn-prediction/
 ├── src/

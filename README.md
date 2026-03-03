@@ -4,7 +4,9 @@ An end-to-end machine learning system that predicts telecom customer churn (7,04
 
 ## Demo
 
-![Churn Prediction Demo](assets/demo.gif)
+<p align="center">
+  <img src="assets/demo.gif" alt="Churn Prediction Demo" width="600">
+</p>
 
 ## Architecture
 

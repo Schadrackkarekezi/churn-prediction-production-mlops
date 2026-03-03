@@ -2,12 +2,6 @@
 
 An end-to-end machine learning system that predicts telecom customer churn (7,043 records, 26.5% churn rate) and serves real-time predictions through a FastAPI REST API, containerized with Docker and deployed to AWS ECS via CI/CD.
 
-## Demo
-
-<p align="center">
-  <img src="assets/demo.gif" alt="Churn Prediction Demo" width="600">
-</p>
-
 ## Architecture
 
 ```
@@ -144,3 +138,9 @@ curl -X POST "http://localhost:8000/predict" \
 - **Frontend**: HTML, CSS, JavaScript
 - **DevOps**: Docker, GitHub Actions
 - **Cloud**: AWS ECR, AWS ECS
+
+## Demo
+
+<p align="center">
+  <img src="assets/demo.gif" alt="Churn Prediction Demo" width="600">
+</p>

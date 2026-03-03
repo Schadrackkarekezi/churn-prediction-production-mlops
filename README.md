@@ -1,54 +1,112 @@
-# Customer Churn Prediction
+# Customer Churn Prediction — Production MLOps Pipeline
 
-End-to-end machine learning pipeline for predicting customer churn.
+An end-to-end machine learning system that predicts telecom customer churn and serves real-time predictions through a FastAPI REST API, containerized with Docker and deployed to AWS ECS via CI/CD.
+
+## Overview
+
+Customer churn costs telecom companies significantly more than retention. This project builds a production-ready ML pipeline that:
+- Ingests and transforms raw customer data (7,043 records, 26.5% churn rate)
+- Engineers features and handles class imbalance with SMOTE
+- Trains and compares 4 ML models with hyperparameter tuning
+- Serves predictions via a FastAPI API with an interactive web UI
+- Deploys automatically to AWS ECS through GitHub Actions CI/CD
+
+## Architecture
+
+```
+Raw Data → Data Ingestion → Feature Engineering → Model Training → Artifact Storage
+                                                                         ↓
+                                                                  Prediction Pipeline
+                                                                         ↓
+                                                                   FastAPI Server
+                                                                         ↓
+                                                               Web UI + REST API
+                                                                         ↓
+                                                              Docker → AWS ECR/ECS
+```
+
+## Demo
+
+![Churn Prediction Demo](assets/demo.gif)
+
+## Key Features
+
+| Feature | Details |
+|---------|---------|
+| **ML Models** | Logistic Regression, Random Forest, Gradient Boosting, XGBoost |
+| **Hyperparameter Tuning** | GridSearchCV with 3-fold CV, optimized on F1-score |
+| **Class Imbalance** | SMOTE oversampling for balanced training |
+| **Feature Engineering** | Tenure groups, average monthly charges, total services count |
+| **Preprocessing** | StandardScaler (numerical) + OneHotEncoder (categorical) via sklearn Pipeline |
+| **API** | FastAPI with Swagger docs, health check, and web UI |
+| **Deployment** | Docker + GitHub Actions CI/CD → AWS ECR/ECS |
 
 ## Project Structure
 
 ```
-churn-prediction/
 ├── src/
 │   ├── components/
-│   │   ├── data_ingestion.py
-│   │   ├── data_transformation.py
-│   │   └── model_trainer.py
+│   │   ├── data_ingestion.py        # Data loading and train/test split
+│   │   ├── data_transformation.py   # Feature engineering and preprocessing
+│   │   └── model_trainer.py         # Model training and evaluation
 │   ├── pipeline/
-│   │   ├── train_pipeline.py
-│   │   └── predict_pipeline.py
-│   ├── exception.py
-│   ├── logger.py
-│   └── utils.py
-├── artifacts/              # Saved models
-├── notebook/               # EDA notebooks
-├── templates/              # Web UI
-├── application.py          # FastAPI app
-├── requirements.txt
-├── setup.py
-├── Dockerfile
-└── README.md
+│   │   ├── train_pipeline.py        # Orchestrates full training workflow
+│   │   └── predict_pipeline.py      # Loads model and generates predictions
+│   ├── exception.py                 # Custom exception handling
+│   ├── logger.py                    # Logging configuration
+│   └── utils.py                     # Utility functions
+├── artifacts/                       # Trained model and preprocessor (.pkl)
+├── data/raw/                        # Raw dataset
+├── notebook/                        # Exploratory Data Analysis
+├── templates/                       # Web UI (HTML/JS)
+├── application.py                   # FastAPI application
+├── Dockerfile                       # Container configuration
+├── requirements.txt                 # Python dependencies
+├── setup.py                         # Package setup
+└── .github/workflows/aws.yml       # CI/CD pipeline
 ```
 
-## Setup
+## Getting Started
+
+### Prerequisites
+- Python 3.11+
+- Docker (optional, for containerized deployment)
+
+### Installation
 
 ```bash
+git clone https://github.com/yourusername/churn-prediction-production-mlops.git
+cd churn-prediction-production-mlops
 pip install -r requirements.txt
 ```
 
-## Train Model
+### Train the Model
 
 ```bash
 python -m src.pipeline.train_pipeline
 ```
 
-## Run API
+### Run the API
 
 ```bash
 python application.py
 ```
 
-API available at `http://localhost:8000`
-- Docs: `http://localhost:8000/docs`
+The API will be available at:
+- Web UI: `http://localhost:8000`
+- Swagger Docs: `http://localhost:8000/docs`
+- Health Check: `http://localhost:8000/health`
+
+### Docker Deployment
+
+```bash
+docker build -t churn-prediction .
+docker run -p 8000:8000 churn-prediction
+```
 
 ## API Usage
+
+**POST** `/predict`
 
 ```bash
 curl -X POST "http://localhost:8000/predict" \
@@ -76,24 +134,20 @@ curl -X POST "http://localhost:8000/predict" \
   }'
 ```
 
-## Docker
-
-```bash
-docker build -t churn-prediction .
-docker run -p 8000:8000 churn-prediction
+**Response:**
+```json
+{
+  "churn": true,
+  "churn_probability": 0.73,
+  "risk_level": "High"
+}
 ```
-
-## Features
-
-- SMOTE for class imbalance
-- Feature engineering (tenure groups, service counts)
-- Multiple models (GradientBoosting, XGBoost, RandomForest)
-- Grid search hyperparameter tuning
-- FastAPI with automatic docs
 
 ## Tech Stack
 
-- scikit-learn, XGBoost
-- Pandas, NumPy
-- FastAPI, Uvicorn
-- Docker
+- **ML**: scikit-learn, XGBoost, imbalanced-learn (SMOTE)
+- **Data**: Pandas, NumPy
+- **API**: FastAPI, Uvicorn, Pydantic
+- **Frontend**: HTML, CSS, JavaScript
+- **DevOps**: Docker, GitHub Actions
+- **Cloud**: AWS ECR, AWS ECS

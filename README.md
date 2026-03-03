@@ -1,15 +1,10 @@
 # Customer Churn Prediction — Production MLOps Pipeline
 
-An end-to-end machine learning system that predicts telecom customer churn and serves real-time predictions through a FastAPI REST API, containerized with Docker and deployed to AWS ECS via CI/CD.
+An end-to-end machine learning system that predicts telecom customer churn (7,043 records, 26.5% churn rate) and serves real-time predictions through a FastAPI REST API, containerized with Docker and deployed to AWS ECS via CI/CD.
 
-## Overview
+## Demo
 
-Customer churn costs telecom companies significantly more than retention. This project builds a production-ready ML pipeline that:
-- Ingests and transforms raw customer data (7,043 records, 26.5% churn rate)
-- Engineers features and handles class imbalance with SMOTE
-- Trains and compares 4 ML models with hyperparameter tuning
-- Serves predictions via a FastAPI API with an interactive web UI
-- Deploys automatically to AWS ECS through GitHub Actions CI/CD
+![Churn Prediction Demo](assets/demo.gif)
 
 ## Architecture
 
@@ -25,10 +20,6 @@ Raw Data → Data Ingestion → Feature Engineering → Model Training → Artif
                                                               Docker → AWS ECR/ECS
 ```
 
-## Demo
-
-![Churn Prediction Demo](assets/demo.gif)
-
 ## Key Features
 
 | Feature | Details |
@@ -42,11 +33,6 @@ Raw Data → Data Ingestion → Feature Engineering → Model Training → Artif
 | **Deployment** | Docker + GitHub Actions CI/CD → AWS ECR/ECS |
 
 ## Project Structure
-
-
-
-
-
 
 ```
 ├── src/
@@ -80,7 +66,7 @@ Raw Data → Data Ingestion → Feature Engineering → Model Training → Artif
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/churn-prediction-production-mlops.git
+git clone https://github.com/Schadrackkarekezi/churn-prediction-production-mlops.git
 cd churn-prediction-production-mlops
 pip install -r requirements.txt
 ```
@@ -102,7 +88,7 @@ The API will be available at:
 - Swagger Docs: `http://localhost:8000/docs`
 - Health Check: `http://localhost:8000/health`
 
-### Docker Deployment
+### Docker
 
 ```bash
 docker build -t churn-prediction .

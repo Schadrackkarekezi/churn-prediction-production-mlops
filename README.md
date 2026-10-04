@@ -11,18 +11,28 @@ An end-to-end machine learning system that predicts telecom customer churn (7,04
 
 ## Architecture
 
+```text
+┌─────────────────────────────────────────────────────────┐
+│                     TRAINING PIPELINE                     │
+│                                                          │
+│   Raw Data → Data Ingestion → Feature Engineering →      │
+│   Model Training → Artifact Storage                      │
+└─────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│                    SERVING PIPELINE                       │
+│                                                          │
+│   Prediction Pipeline → FastAPI Server → Web UI + REST   │
+└─────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│                      DEPLOYMENT                           │
+│                                                          │
+│   Docker → AWS ECR → AWS ECS   (CI/CD via GitHub Actions)│
+└─────────────────────────────────────────────────────────┘
 ```
-Raw Data → Data Ingestion → Feature Engineering → Model Training → Artifact Storage
-                                                                         ↓
-                                                                  Prediction Pipeline
-                                                                         ↓
-                                                                   FastAPI Server
-                                                                         ↓
-                                                               Web UI + REST API
-                                                                         ↓
-                                                              Docker → AWS ECR/ECS
-```
-
 ## Key Features
 
 | Feature | Details |

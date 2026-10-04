@@ -11,28 +11,27 @@ An end-to-end machine learning system that predicts telecom customer churn (7,04
 
 ## Architecture
 
-```text
-┌─────────────────────────────────────────────────────────┐
-│                     TRAINING PIPELINE                     │
-│                                                          │
-│   Raw Data → Data Ingestion → Feature Engineering →      │
-│   Model Training → Artifact Storage                      │
-└─────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────┐
-│                    SERVING PIPELINE                       │
-│                                                          │
-│   Prediction Pipeline → FastAPI Server → Web UI + REST   │
-└─────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────┐
-│                      DEPLOYMENT                           │
-│                                                          │
-│   Docker → AWS ECR → AWS ECS   (CI/CD via GitHub Actions)│
-└─────────────────────────────────────────────────────────┘
-```
+<div align="center">
+<pre>
+┌──────────────────────────────────────────────┐
+│                TRAINING PIPELINE               │
+│  Raw Data → Data Ingestion → Feature Eng. →    │
+│  Model Training → Artifact Storage             │
+└──────────────────────────────────────────────┘
+                      │
+                      ▼
+┌──────────────────────────────────────────────┐
+│                SERVING PIPELINE                │
+│  Prediction Pipeline → FastAPI → Web UI + API  │
+└──────────────────────────────────────────────┘
+                      │
+                      ▼
+┌──────────────────────────────────────────────┐
+│                  DEPLOYMENT                    │
+│  Docker → AWS ECR → ECS  (CI/CD: GitHub Actions)│
+└──────────────────────────────────────────────┘
+</pre>
+</div>
 ## Key Features
 
 | Feature | Details |
